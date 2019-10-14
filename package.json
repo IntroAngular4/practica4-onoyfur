@@ -3,7 +3,7 @@
   "version": "3.0.0",
   "scripts": {
     "build:prod": "ng build --prod",
-    "build:pub": "ng build --prod --output-path docs --base-href https://introAngular4.github.com/practica4-onoyfur/",
+    "build:pub": "ng build --prod --output-path docs --base-href https://introangular4.github.io/practica4-onoyfur/",
     "e2e": "ng e2e",
     "lint": "ng lint",
     "ng": "ng",
