@@ -13,6 +13,11 @@ export class ProjectsService implements Iprojects {
     this.proyectos = environment.projects;
   }
 
+  obtenerProyectos() {
+    this.proyectos = environment.projects;
+    return this.proyectos;
+  }
+
   eliminaProyecto(proyecto: Project) {
     this.proyectos = this.proyectos.filter(p => p.id !== proyecto.id);
     environment.projects = this.proyectos;
@@ -29,8 +34,8 @@ export class ProjectsService implements Iprojects {
   }
 
   guardaProyecto(proyecto: Project) {
-    this.proyectos.push({ ...proyecto });
-    environment.projects = this.proyectos;
+    environment.projects.push({ ...proyecto });
+    this.proyectos = environment.projects;
     return true;
   }
 }

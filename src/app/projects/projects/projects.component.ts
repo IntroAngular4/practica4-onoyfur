@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
 import { ProjectsService } from '../projects.service';
 import { Project } from './models/project.model';
 
@@ -14,7 +13,7 @@ export class ProjectsComponent implements OnInit {
   constructor(private projectService: ProjectsService) {}
 
   ngOnInit() {
-    this.proyectos = environment.projects;
+    this.proyectos = this.projectService.obtenerProyectos();
   }
 
   public eliminaProyecto(proyecto: Project) {
