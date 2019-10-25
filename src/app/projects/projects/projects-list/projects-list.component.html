@@ -1,0 +1,16 @@
+<section>
+  <h3>{{titulo}}</h3>
+  <div *ngIf="proyectos.length > 0; else empty" style="margin-left: 25px;">
+      <div *ngFor="let proyecto of proyectos"  class="row" >
+          <div class="column1">
+            <span>{{proyecto.id}} - {{proyecto.nombre}}</span>
+          </div>
+          <div class="column2">
+              <input value="Eliminar" type="button" (click)="elimina.emit(proyecto)" />
+              <a routerLink="{{proyecto.id}}" class="button"><span>Ver</span></a>
+          </div>
+        </div>
+    </div>
+  <ng-template #empty><div style="margin-left: 25px;"><i>{{msgNoProyectos}}</i></div></ng-template>
+</section>
+<br>

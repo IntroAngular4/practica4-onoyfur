@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from '../../../environments/environment';
+import { ProjectsService } from '../projects.service';
 import { Project } from '../projects/models/project.model';
 
 @Component({
@@ -9,22 +9,18 @@ import { Project } from '../projects/models/project.model';
   styleUrls: ['./new-project.component.css']
 })
 export class NewProjectComponent implements OnInit {
-  public proyecto: Project;
-  public proyectos: Project[];
   public formHidden: boolean;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private projectService: ProjectsService) {}
 
   ngOnInit() {
-    this.proyectos = [];
-    this.proyecto = { id: -1, nombre: '' };
     this.formHidden = false;
   }
 
-  public guardarProyecto() {
-    environment.projects.push({ ...this.proyecto });
-    this.proyecto = { id: -1, nombre: '' };
-    this.formHidden = true;
-    this.router.navigate(['/projects']);
+  public guardarProyecto(proyecto: Project) {
+    if (this.projectService.guardaProyecto(proyecto)) {
+      this.formHidden = true;
+      this.router.navigate(['/projects']);
+    }
   }
 }

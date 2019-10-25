@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { ProjectsService } from '../projects.service';
 import { Project } from './models/project.model';
 
 @Component({
@@ -8,17 +9,19 @@ import { Project } from './models/project.model';
   styleUrls: ['./projects.component.css']
 })
 export class ProjectsComponent implements OnInit {
-  public numProyectos: number;
   public proyectos: Project[];
 
-  constructor() {}
+  constructor(private projectService: ProjectsService) {}
 
   ngOnInit() {
     this.proyectos = environment.projects;
   }
 
   public eliminaProyecto(proyecto: Project) {
-    this.proyectos = this.proyectos.filter(p => p.id !== proyecto.id);
-    environment.projects = this.proyectos;
+    this.proyectos = this.projectService.eliminaProyecto(proyecto);
+  }
+
+  public filtraProyectos(filtroNombre: string) {
+    this.proyectos = this.projectService.filtraProyectos(filtroNombre);
   }
 }

@@ -7,17 +7,12 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  public counterClass: String;
-  public header: String;
   public description: String;
-
   public numProyectos: number;
 
   constructor() {}
 
   ngOnInit() {
-    this.counterClass = 'tag secondary';
-    this.header = 'Inicio';
     this.description = 'Resumen Proyectos';
     this.numProyectos = environment.projects.length;
   }

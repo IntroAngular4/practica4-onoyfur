@@ -1,0 +1,23 @@
+<form [ngClass]="{ hidden: formHidden }" *ngIf="formHidden == false; else empty">
+    <h3>{{titulo}}</h3>
+    <div style="margin-left:30px">
+        <section>
+            <label for="name">Id</label>
+            <input name="name" type="text" [(ngModel)]="proyecto.id" placeholder="Identificador Proyecto" />
+          </section>
+          <section>
+              <label for="name">Nombre</label>
+              <input name="name" type="text" [(ngModel)]="proyecto.nombre" placeholder="Nombre Proyecto" />
+            </section>
+          <input value="Guardar" type="submit" (click)="guarda.emit(proyecto)" />
+     </div>
+  </form>
+  <!--<pre>{{ proyecto | json }}{{formHidden}}</pre>-->
+  <ng-template #empty>
+    <br>
+    <i>{{msgAltaOk}}</i>
+    <a routerLink="/projects" routerLinkActive="router-link-active" class="button">
+        <span>Volver</span>
+    </a>
+  </ng-template>
+

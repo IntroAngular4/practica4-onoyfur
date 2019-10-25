@@ -1,22 +1,9 @@
-
-
-<header class="sticky">
-    <a routerLink="newproject" class="button"> Nuevo Proyecto </a>
-</header>
-<router-outlet></router-outlet>
-<section>
-  <h3>Lista de Proyectos</h3>
-  <div *ngIf="proyectos.length > 0; else empty" style="margin-left: 25px;">
-      <div *ngFor="let proyecto of proyectos"  class="row" >
-          <div class="column1">
-            <span>{{proyecto.id}} - {{proyecto.nombre}}</span>
-          </div>
-          <div class="column2">
-              <input value="Eliminar" type="button" (click)="eliminaProyecto(proyecto)" />
-              <a routerLink="{{proyecto.id}}" class="button"><span>Ver</span></a>
-          </div>
-        </div>
-    </div>
-  <ng-template #empty> <i>No hay proyectos disponibles</i> </ng-template>
-</section>
-<br>
+<app-filter-projects
+      (filtra) = "filtraProyectos($event)">
+</app-filter-projects>
+<app-projects-list
+      [proyectos] = "proyectos"
+      [titulo] = "'Lista de Proyectos'"
+      [msgNoProyectos] = "'No hay proyectos disponibles'"
+      (elimina) = "eliminaProyecto($event)">
+</app-projects-list>

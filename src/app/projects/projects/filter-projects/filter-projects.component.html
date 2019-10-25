@@ -1,0 +1,5 @@
+<header class="sticky">
+    <a routerLink="newproject" class="button"> Nuevo Proyecto </a>
+</header>
+<br>
+<input name="filtroNombre" type="text" [(ngModel)]="filtroNombre" (keyup) = "filtra.emit(filtroNombre)" placeholder="Filtra lista por nombre" />
