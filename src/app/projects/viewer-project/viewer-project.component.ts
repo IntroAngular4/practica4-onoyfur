@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { environment } from '../../../environments/environment';
+import { ProjectsService } from '../projects.service';
 import { Project } from '../projects/models/project.model';
 
 @Component({
@@ -12,11 +12,12 @@ export class ViewerProjectComponent implements OnInit {
   public projectId = -1;
   public proyecto: Project;
 
-  constructor(activateRoute: ActivatedRoute) {
+  constructor(private projectService: ProjectsService, activateRoute: ActivatedRoute) {
     this.projectId = activateRoute.snapshot.params['id'];
-    this.proyecto = { id: -1, nombre: '' };
+    this.proyecto = { codigo: -1, nombre: '', _id: null };
   }
   ngOnInit() {
-    this.proyecto = environment.projects.find(p => p.id == this.projectId);
+    //this.proyecto = environment.projects.find(p => p.codigo == this.projectId);
+    this.projectService.obtieneProyecto(this.projectId).subscribe(proyecto => (this.proyecto = proyecto));
   }
 }

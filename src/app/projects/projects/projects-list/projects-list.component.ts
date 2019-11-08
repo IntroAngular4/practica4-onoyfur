@@ -11,6 +11,8 @@ export class ProjectsListComponent implements OnInit {
   @Input() public proyectos: Project[];
   @Input() public msgNoProyectos: string;
   @Output() public elimina = new EventEmitter<Project>();
+  @Output() public cargaAPI = new EventEmitter<Project>();
+  @Output() public borraAPI = new EventEmitter<Project>();
 
   constructor() {}
 

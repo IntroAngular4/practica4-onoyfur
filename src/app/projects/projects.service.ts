@@ -1,4 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Iprojects } from './iprojects';
 import { Project } from './projects/models/project.model';
@@ -9,33 +12,52 @@ import { Project } from './projects/models/project.model';
 export class ProjectsService implements Iprojects {
   public proyectos: Project[];
 
-  constructor() {
-    this.proyectos = environment.projects;
-  }
+  private proyectosApi = 'https://api-base.herokuapp.com/api/pub/projects';
+
+  public misProyectos$: Observable<any> = null;
+
+  constructor(private httpClient: HttpClient) {}
 
   obtenerProyectos() {
-    this.proyectos = environment.projects;
-    return this.proyectos;
+    console.log('obtenerproyectos');
+    this.misProyectos$ = this.httpClient.get(this.proyectosApi);
+    console.log(this.misProyectos$);
+    return this.misProyectos$;
   }
 
   eliminaProyecto(proyecto: Project) {
-    this.proyectos = this.proyectos.filter(p => p.id !== proyecto.id);
-    environment.projects = this.proyectos;
-    return this.proyectos;
+    const url = `${this.proyectosApi}/${proyecto._id}`;
+    console.log(url);
+    this.httpClient.delete(url).subscribe();
+
+    this.misProyectos$ = this.misProyectos$.pipe(map(proj => proj.filter(p => p._id != proyecto._id)));
+    return this.misProyectos$;
   }
 
   filtraProyectos(filtroNombre: string) {
-    if (filtroNombre == '') {
-      this.proyectos = environment.projects;
-    } else {
-      this.proyectos = this.proyectos.filter(p => p.nombre.toLowerCase().indexOf(filtroNombre.toLowerCase()) !== -1);
-    }
-    return this.proyectos;
+    this.misProyectos$ = this.misProyectos$.pipe(
+      map(proj => proj.filter(p => p.nombre.toLowerCase().indexOf(filtroNombre.toLowerCase()) !== -1))
+    );
+    return this.misProyectos$;
+  }
+
+  obtieneProyecto(filtroId: number) {
+    return this.misProyectos$.pipe(map(proj => proj.find(p => p._id == filtroId)));
   }
 
   guardaProyecto(proyecto: Project) {
-    environment.projects.push({ ...proyecto });
-    this.proyectos = environment.projects;
+    this.httpClient.post(this.proyectosApi, proyecto).subscribe();
     return true;
+  }
+
+  cargaDatosApi() {
+    this.proyectos = environment.projects;
+    this.proyectos.forEach(proyecto => this.httpClient.post(this.proyectosApi, proyecto).subscribe());
+    return true;
+  }
+
+  borraDatosApi() {
+    this.misProyectos$ = this.httpClient.delete(this.proyectosApi);
+    return this.misProyectos$;
   }
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ProjectsService } from '../projects.service';
 import { Project } from './models/project.model';
 
@@ -10,17 +11,28 @@ import { Project } from './models/project.model';
 export class ProjectsComponent implements OnInit {
   public proyectos: Project[];
 
-  constructor(private projectService: ProjectsService) {}
+  constructor(private projectService: ProjectsService, route: ActivatedRoute) {
+    route.params.subscribe(val => {
+      this.ngOnInit();
+    });
+  }
 
   ngOnInit() {
-    this.proyectos = this.projectService.obtenerProyectos();
+    this.projectService.obtenerProyectos().subscribe(list => (this.proyectos = list));
   }
 
   public eliminaProyecto(proyecto: Project) {
-    this.proyectos = this.projectService.eliminaProyecto(proyecto);
+    this.projectService.eliminaProyecto(proyecto).subscribe(list => (this.proyectos = list));
   }
 
   public filtraProyectos(filtroNombre: string) {
-    this.proyectos = this.projectService.filtraProyectos(filtroNombre);
+    this.projectService.filtraProyectos(filtroNombre).subscribe(list => (this.proyectos = list));
+  }
+
+  public cargaDatosAPI() {
+    this.projectService.cargaDatosApi();
+  }
+  public borraDatosAPI() {
+    this.projectService.borraDatosApi().subscribe(list => (this.proyectos = list));
   }
 }

@@ -16,6 +16,6 @@ export class NewProjectFormComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    this.proyecto = { id: -1, nombre: '' };
+    this.proyecto = { codigo: -1, nombre: '', _id: null };
   }
 }
