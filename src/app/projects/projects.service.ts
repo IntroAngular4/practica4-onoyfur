@@ -32,10 +32,14 @@ export class ProjectsService implements Iprojects {
   }
 
   filtraProyectos(filtroNombre: string) {
-    this.misProyectos$ = this.misProyectos$.pipe(
-      map(proj => proj.filter(p => p.nombre.toLowerCase().indexOf(filtroNombre.toLowerCase()) !== -1))
-    );
-    return this.misProyectos$;
+    if (filtroNombre == '') {
+      return (this.misProyectos$ = this.obtenerProyectos());
+    } else {
+      this.misProyectos$ = this.misProyectos$.pipe(
+        map(proj => proj.filter(p => p.nombre.toLowerCase().indexOf(filtroNombre.toLowerCase()) !== -1))
+      );
+      return this.misProyectos$;
+    }
   }
 
   obtieneProyecto(filtroId: number) {

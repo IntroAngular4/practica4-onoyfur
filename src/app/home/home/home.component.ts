@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { ProjectsService } from '../../projects/projects.service';
 
 @Component({
@@ -11,11 +10,7 @@ export class HomeComponent implements OnInit {
   public description: String;
   public numProyectos: number;
 
-  constructor(private projectService: ProjectsService, route: ActivatedRoute) {
-    route.params.subscribe(val => {
-      this.ngOnInit();
-    });
-  }
+  constructor(private projectService: ProjectsService) {}
 
   ngOnInit() {
     this.description = 'Resumen Proyectos';
