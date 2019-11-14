@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NotificationsStoreService } from '../../../notifications/notifications-store.service';
+import { NotificationsStoreService } from '../notifications-store.service';
 
 @Component({
-  selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  selector: 'app-receiver',
+  templateUrl: './receiver.component.html',
+  styles: []
 })
-export class FooterComponent implements OnInit {
+export class ReceiverComponent implements OnInit {
   public notes$: Observable<any[]>;
 
   constructor(private notificationsStore: NotificationsStoreService, private httpClient: HttpClient) {}

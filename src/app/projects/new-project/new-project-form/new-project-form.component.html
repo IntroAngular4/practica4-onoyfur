@@ -1,16 +1,21 @@
-<form [ngClass]="{ hidden: formHidden }" *ngIf="formHidden == false; else empty">
+<form [formGroup]="formGroup" [ngClass]="{ hidden: formHidden }" *ngIf="formHidden == false; else empty">
     <h3>{{titulo}}</h3>
     <div style="margin-left:30px">
         <section>
-            <label for="name">Id</label>
-            <input name="name" type="text" [(ngModel)]="proyecto.codigo" placeholder="Identificador Proyecto" />
+            <label for="codigo">Id</label>
+            <!--input name="codigo" type="text" [(ngModel)]="proyecto.codigo" placeholder="Identificador Proyecto" /-->
+            <input name="codigo" type="text" formControlName="codigo" placeholder="Identificador Proyecto" />
+            <span style="color:red">{{ getError('codigo') }}</span>
           </section>
           <section>
-              <label for="name">Nombre</label>
-              <input name="name" type="text" [(ngModel)]="proyecto.nombre" placeholder="Nombre Proyecto" />
+              <label for="nombre">Nombre</label>
+              <!--input name="nombre" type="text" [(ngModel)]="proyecto.nombre" placeholder="Nombre Proyecto" /-->
+              <input name="nombre" type="text" formControlName="nombre" placeholder="Nombre Proyecto" />
+              <span style="color:red">{{ getError('nombre') }}</span><br>
             </section>
-          <input value="Guardar" type="submit" (click)="guarda.emit(proyecto)" />
-     </div>
+          <!--input value="Guardar" type="submit" (click)="guarda.emit(proyecto)" /-->
+          <input value="Guardar" type="submit" [disabled]="formGroup.invalid" (click)="guardar()" />
+        </div>
   </form>
   <!--<pre>{{ proyecto | json }}{{formHidden}}</pre>-->
   <ng-template #empty>

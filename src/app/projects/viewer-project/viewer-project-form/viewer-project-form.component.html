@@ -1,14 +1,18 @@
 <div style="padding: 20px;">
     <h3>{{titulo}}</h3>
     <div style="margin-left:30px">
-      <section>
-        <label for="name">Id</label>
-        <input name="name" type="text" readonly value="{{idProyecto}}" placeholder="Identificador Proyecto" />
-      </section>
-      <section>
-        <label for="name">Nombre</label>
-        <input name="name" type="text" readonly value="{{nombreProyecto}}" placeholder="Nombre Proyecto" />
-      </section>
+      <form [formGroup]="formGroup">
+        <section>
+          <label for="codigo">Id</label>
+          <!--input name="codigo" type="text" readonly value="{{idProyecto}}" /-->
+          <input name="codigo" type="text" readonly formControlName="codigo" value="{{idProyecto}}"/>
+        </section>
+        <section>
+          <label for="nombre">Nombre</label>
+          <!--input name="nombre" type="text" readonly value="{{nombreProyecto}}" /-->
+          <input name="nombre" type="text" readonly formControlName="nombre" value="{{nombreProyecto}}"/>
+        </section>
+      </form>
     </div>
 </div>
 <!--<pre>{{ proyecto | json }}</pre>-->

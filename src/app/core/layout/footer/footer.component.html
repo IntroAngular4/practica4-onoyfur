@@ -1,1 +1,6 @@
-<footer class="footer"><div style="text-align: center;">Curso de Ángular CLI</div></footer>
+<footer class="footer">
+  <div style="text-align: center;">
+    <h3>Curso de Ángular CLI</h3>
+    <span style="color:grey" *ngFor="let note of notes$ | async; last as isLast"><label *ngIf="isLast">-{{ note }}-</label></span>
+  </div>
+</footer>

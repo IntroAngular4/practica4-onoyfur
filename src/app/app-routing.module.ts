@@ -16,6 +16,10 @@ const routes: Routes = [
     component: NotFoundComponent
   },
   {
+    path: 'notifications',
+    loadChildren: './notifications/notifications.module#NotificationsModule'
+  },
+  {
     path: '**',
     redirectTo: 'not-found'
   }

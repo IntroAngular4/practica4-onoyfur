@@ -19,15 +19,12 @@ export class ProjectsService implements Iprojects {
   constructor(private httpClient: HttpClient) {}
 
   obtenerProyectos() {
-    console.log('obtenerproyectos');
     this.misProyectos$ = this.httpClient.get(this.proyectosApi);
-    console.log(this.misProyectos$);
     return this.misProyectos$;
   }
 
   eliminaProyecto(proyecto: Project) {
     const url = `${this.proyectosApi}/${proyecto._id}`;
-    console.log(url);
     this.httpClient.delete(url).subscribe();
 
     this.misProyectos$ = this.misProyectos$.pipe(map(proj => proj.filter(p => p._id != proyecto._id)));
