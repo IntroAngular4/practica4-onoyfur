@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { environment } from '../../../environments/environment';
+import { ActivatedRoute } from '@angular/router';
+import { ProjectsService } from '../../projects/projects.service';
 
 @Component({
   selector: 'app-home',
@@ -10,10 +11,15 @@ export class HomeComponent implements OnInit {
   public description: String;
   public numProyectos: number;
 
-  constructor() {}
+  constructor(private projectService: ProjectsService, route: ActivatedRoute) {
+    route.params.subscribe(val => {
+      this.ngOnInit();
+    });
+  }
 
   ngOnInit() {
     this.description = 'Resumen Proyectos';
-    this.numProyectos = environment.projects.length;
+    //this.numProyectos = environment.projects.length;
+    this.projectService.obtenerProyectos().subscribe(list => (this.numProyectos = list != null ? list.length : 0));
   }
 }
